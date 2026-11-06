@@ -1,0 +1,58 @@
+#!/bin/sh
+
+# 设置音频配置的函数
+set_audio_config() {
+    # 设置 ADC HPF CUT-OFF 为 ON
+    amixer -c 0 cset name='ADC HPF Cut-off' 1
+
+    # 设置 ADC-MIC-RIGHT 为 mute 关闭
+    amixer -c 0 cset name='ADC MIC Right Switch' 1
+
+    # 设置 ADC Digital Left (0-255)
+    amixer -c 0 cset name='ADC Digital Left Volume' 211
+    # 设置 ADC MIC Left gain (0-3)
+    amixer -c 0 cset name='ADC MIC Left Gain' 3
+    # 设置 ADC ALC Left(0-31)
+    amixer -c 0 cset name='ADC ALC Left Volume' 16
+
+	# 设置扬声器音量(0~30)
+	amixer -c 0 cset name='DAC LINEOUT Volume' 25
+}
+
+# insmod
+set_insmod() {
+    chmod +x /oem/usr/ko/insmod_ko.sh
+    chmod +x /oem/usr/ko/insmod_wifi.sh
+    /oem/usr/ko/insmod_ko.sh
+}
+
+# start desk_bot
+start_desk_bot() {
+    sleep 1
+    # 启用 Wi-Fi
+    ifconfig wlan0 up
+    mkdir -p /var/run/wpa_supplicant
+    # 启动 wpa_supplicant
+    wpa_supplicant -B -c /etc/wpa_supplicant.conf -i wlan0
+    sleep 2
+    # ip get
+    udhcpc -i wlan0 -n -t 3
+    sleep 1
+    # 切换到程序所在目录
+    cd /root/bin || { echo "Failed to change directory to /root/bin"; exit 1; }
+    # 确保 main 可执行文件有权限
+    chmod +x main
+    # 启动桌面机器人
+    ./main
+}
+
+case $1 in
+start)
+	set_audio_config
+    set_insmod
+    # start_desk_bot
+	;;
+*)
+	exit 1
+	;;
+esac

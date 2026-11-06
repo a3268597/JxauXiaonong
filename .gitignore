@@ -1,0 +1,45 @@
+# 指定不上传的配置文件
+Demo/DeskBot_demo/bin/system_para.conf
+
+# 编译产物和二进制文件
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# 构建目录
+build/
+bin/
+obj/
+Debug/
+Release/
+
+# IDE 和编辑器配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 日志文件
+*.log
+
+# 敏感信息文件
+*.key
+*.pem
+.env
+*.conf.local
+config/local.*
+credentials.*
+
+# 临时文件
+*.tmp
+*.temp
+*.bak

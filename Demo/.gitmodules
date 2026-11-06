@@ -1,0 +1,16 @@
+[submodule "AIChat_demo/Server/models/FunAudioLLM/SenseVoice"]
+	path = AIChat_demo/Server/models/FunAudioLLM/SenseVoice
+	url = https://github.com/FunAudioLLM/SenseVoice.git
+[submodule "AIChat_demo/Server/models/FunAudioLLM/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch"]
+	path = AIChat_demo/Server/models/FunAudioLLM/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch
+	url = https://www.modelscope.cn/iic/speech_fsmn_vad_zh-cn-16k-common-pytorch.git
+[submodule "AIChat_demo/Server/models/FunAudioLLM/iic/SenseVoiceSmall"]
+	path = AIChat_demo/Server/models/FunAudioLLM/iic/SenseVoiceSmall
+	url = https://www.modelscope.cn/iic/SenseVoiceSmall.git
+[submodule "lvgl_demo/lvgl"]
+	path = DeskBot_demo/lvgl
+	url = https://github.com/lvgl/lvgl.git
+	branch = release/v9.2
+[submodule "rkmpi_demos"]
+	path = rkmpi_demos
+	url = https://github.com/LuckfoxTECH/luckfox_pico_rkmpi_example.git
