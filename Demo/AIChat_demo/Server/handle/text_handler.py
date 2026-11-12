@@ -52,6 +52,10 @@ class TextHandler:
             elif data.get('state') == 'speaking':
                 logger.info("Client is speaking")
 
+        elif data.get('type') == 'interrupt':
+            # 播报期间用户说了唤醒词: 立即停止生成并丢弃未发送的音频
+            self.service_manager.interrupt_all()
+
         else:
             logger.warning(f"Unknown JSON message type: {data.get('type')}")
             logger.info(f"Received unknown message: {data}")

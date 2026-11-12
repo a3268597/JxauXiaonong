@@ -102,7 +102,7 @@ install(TARGETS AIChatClient DESTINATION bin)
 # 安装资源文件到demo/resources子目录
 install(FILES ${CMAKE_SOURCE_DIR}/third_party/snowboy/resources/common.res
         DESTINATION third_party/snowboy/resources)
-install(FILES ${CMAKE_SOURCE_DIR}/third_party/snowboy/resources/models/Xiaonong.pmdl
+install(FILES ${CMAKE_SOURCE_DIR}/third_party/snowboy/resources/models/xiaonong.pmdl
         DESTINATION third_party/snowboy/resources/models)
 install(FILES ${CMAKE_SOURCE_DIR}/third_party/audio/waked.pcm
         DESTINATION third_party/audio)

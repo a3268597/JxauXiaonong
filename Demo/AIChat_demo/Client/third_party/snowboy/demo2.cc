@@ -4,7 +4,7 @@
 
 // 这是相对于执行可执行文件时的路径的
 #define resource_filename "resources/common.res"
-#define model_filename "resources/models/echo.pmdl"
+#define model_filename "resources/models/xiaonong.pmdl"
 #define sensitivity_str "0.5"
 #define audio_gain 1.0
 #define apply_frontend false

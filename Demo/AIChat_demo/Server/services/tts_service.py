@@ -21,5 +21,9 @@ class TTSService:
         '''关闭TTS流式合成'''
         self.tts_model.tts_stream_close()
 
+    def tts_cancel(self):
+        '''取消本次合成, 丢弃剩余音频(用户打断时用)'''
+        self.tts_model.tts_stream_cancel()
+
     def tts_speech_stream(self, text_chunk):
         self.tts_model.tts_stream_speech_synthesis(text_chunk)
