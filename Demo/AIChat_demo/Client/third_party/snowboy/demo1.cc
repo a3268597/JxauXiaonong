@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 
 
   std::string resource_filename = "resources/common.res";
-  std::string model_filename = "resources/models/echo.pmdl";
+  std::string model_filename = "resources/models/xiaonong.pmdl";
   std::string sensitivity_str = "0.5";
   float audio_gain = 1;
   bool apply_frontend = false;

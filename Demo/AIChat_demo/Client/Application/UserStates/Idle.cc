@@ -23,8 +23,8 @@ void IdleState::Enter(Application* app) {
 void IdleState::Run(Application* app) {
     USER_LOG_INFO("Idle state run.");
     SnowboyDetect* detector = SnowboyDetectConstructor("third_party/snowboy/resources/common.res",
-                                                     "third_party/snowboy/resources/models/Xiaonong.pmdl");
-    SnowboyDetectSetSensitivity(detector, "0.5");
+                                                     "third_party/snowboy/resources/models/xiaonong.pmdl");
+    SnowboyDetectSetSensitivity(detector, "0.7");
     SnowboyDetectSetAudioGain(detector, 1);
     SnowboyDetectApplyFrontend(detector, false);
     std::vector<int16_t> data;

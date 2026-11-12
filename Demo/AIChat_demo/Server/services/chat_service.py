@@ -8,8 +8,10 @@ class ChatService:
         # dashscope.api_key = settings.DASHSCOPE_API_KEY
         self.chat_llm_model = LLMModel(model_name=global_settings.CHAT_MODEL)
         self.chat_llm_model.clear_messages()
-        self.chat_llm_model.set_model_sys_content("你是一个桌面机器人, 名为Echo, 全程请快速地回复我. " \
-        "同时你还有函数执行的功能, 可以根据函数结果来回复我, 但是请别回复json或者其他编程语言等, 不然无法读清楚.")
+        self.chat_llm_model.set_model_sys_content("你是一个桌面机器人, 名为小农同学, 全程请快速地回复我. " \
+        "同时你还有函数执行的功能, 可以根据函数结果来回复我, 但是请别回复json或者其他编程语言等, 不然无法读清楚. " \
+        "重要: 你的回复会被逐字转成语音播放, 而「小农同学」正是唤醒词, 所以回复里绝对不要出现你自己的名字, " \
+        "也不要用「小农同学：」这类开头, 否则会把你自己的声音当成唤醒词。")
 
     def chat_clear(self):
         """清除对话历史记录"""

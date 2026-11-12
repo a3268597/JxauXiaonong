@@ -10,6 +10,8 @@ class TTSModel:
     def __init__(self):
         # 初始化 TTS 回调函数
         self.callback = None
+        # 本次流里是否真的提交过文本(只预开连接时不能走 streaming_complete)
+        self._has_text = False
         # 初始化 TTS 生成器
         self.synthesizer = SpeechSynthesizer(
             model="cosyvoice-v1",
@@ -47,6 +49,7 @@ class TTSModel:
         '''设置TTS回调函数, 提前打开ws连接'''
         self.callback = self.__tts_callback(on_open=on_open, on_complete=on_complete,
                                       on_error=on_error, on_close=on_close, on_data=on_data)
+        self._has_text = False
         self.synthesizer=SpeechSynthesizer(
             model="cosyvoice-v1",
             voice="longxiaochun",
@@ -57,11 +60,32 @@ class TTSModel:
             self.synthesizer.streaming_call('') # 先提前打开ws连接
             time.sleep(0.1)
         except Exception as e:
+            logger.error(f"打开 TTS 连接失败: {str(e)}")
             return False
 
     def tts_stream_close(self):
-        self.synthesizer.streaming_complete()
+        if not self._has_text:
+            # 只预开了连接、一个字都没提交(例如 VAD 判定无人说话就直接回 idle):
+            # 此时 streaming_complete 会让服务端报 InvalidParameter
+            # "Please ensure input text is valid." 并返回 1007, 应该改用 cancel。
+            self.tts_stream_cancel()
+            return
+        try:
+            self.synthesizer.streaming_complete()
+        except Exception as exc:
+            # 连接没打开成功(例如网络抖动)时, 关闭会抛 InvalidTask,
+            # 这里不应该打断 chat_start_task 的收尾
+            logger.warning(f"TTS 关闭时忽略异常: {exc}")
+            return
         logger.info(f"Request ID: {self.synthesizer.get_last_request_id()}")
+
+    def tts_stream_cancel(self):
+        """立即结束本次合成任务, 丢弃还没生成/还没送出去的音频"""
+        self._has_text = False
+        try:
+            self.synthesizer.streaming_cancel(complete_timeout_millis=2000)
+        except Exception as exc:
+            logger.debug(f"取消 TTS 任务时忽略异常: {exc}")
 
     def tts_stream_speech_synthesis(self, text_chunk):
         '''流式语音合成
@@ -72,6 +96,8 @@ class TTSModel:
         if text_chunk:
             try:
                 self.synthesizer.streaming_call(text_chunk)
+                self._has_text = True
             except Exception as e:
+                logger.error(f"TTS 流式合成失败: {str(e)}")
                 return False
 

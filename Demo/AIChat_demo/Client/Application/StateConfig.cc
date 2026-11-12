@@ -46,6 +46,8 @@ void StateConfig::Configure(StateMachine& state_machine, Application* app) {
     state_machine.RegisterTransition(static_cast<int>(AppState::thinking), static_cast<int>(AppEvent::speaking_msg_received), static_cast<int>(AppState::speaking)); 
     state_machine.RegisterTransition(static_cast<int>(AppState::speaking), static_cast<int>(AppEvent::speaking_end), static_cast<int>(AppState::listening));
     state_machine.RegisterTransition(static_cast<int>(AppState::speaking), static_cast<int>(AppEvent::dialogue_end), static_cast<int>(AppState::idle));
+    // 打断(barge-in): 播报期间再次说到唤醒词 -> 立即静音并转入 listening 听新指令
+    state_machine.RegisterTransition(static_cast<int>(AppState::speaking), static_cast<int>(AppEvent::wake_detected), static_cast<int>(AppState::listening));
     state_machine.RegisterTransition(-1, static_cast<int>(AppEvent::fault_happen), static_cast<int>(AppState::fault));
     state_machine.RegisterTransition(-1, static_cast<int>(AppEvent::to_stop), static_cast<int>(AppState::stopping));
     state_machine.RegisterTransition(static_cast<int>(AppState::fault), static_cast<int>(AppEvent::fault_solved), static_cast<int>(AppState::idle));
