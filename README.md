@@ -6,6 +6,8 @@
 
 本项目是一个十分硬核，功能超多的桌面机器人。是基于RV1106，有LVGL菜单，可以陪你聊天，翻译，看天气，能跑AI相机，小巧的linux桌面助手和开发板~
 
+江西农业大学软件学院开发内容：新增类google的小恐龙游戏
+
 硬件开源地址：https://oshwhub.com/no_chicken/ai-desktop-robot-echo
 
 演示视频链接: https://www.bilibili.com/video/BV161ZaYyEmF/
