@@ -14,8 +14,8 @@ class TTSModel:
         self._has_text = False
         # 初始化 TTS 生成器
         self.synthesizer = SpeechSynthesizer(
-            model="cosyvoice-v1",
-            voice="longxiaochun",
+            model="cosyvoice-v2",
+            voice="longxiaochun_v2",
             format=AudioFormat.PCM_16000HZ_MONO_16BIT,
             callback=self.callback
         )
@@ -51,8 +51,8 @@ class TTSModel:
                                       on_error=on_error, on_close=on_close, on_data=on_data)
         self._has_text = False
         self.synthesizer=SpeechSynthesizer(
-            model="cosyvoice-v1",
-            voice="longxiaochun",
+            model="cosyvoice-v2",
+            voice="longxiaochun_v2",
             format=AudioFormat.PCM_16000HZ_MONO_16BIT,
             callback=self.callback
         )
